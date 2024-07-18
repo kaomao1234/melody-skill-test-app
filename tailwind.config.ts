@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'noto-sans-thai': ['Noto Sans Thai', 'sans-serif'],
+      },
       colors: {
         pink: {
           550: "#E01E7B",
