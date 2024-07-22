@@ -53,7 +53,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
       <Dropdown
         classNames={{ trigger: "justify-start" }}
-        isOpen={isScrolling ? false : undefined}
+        // isOpen={isScrolling ? false : undefined}
       >
         <DropdownTrigger>
           <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none duration-200">
@@ -96,7 +96,9 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown isOpen={isScrolling ? false : undefined}>
+      <Dropdown
+      //  isOpen={isScrolling ? false : undefined}
+      >
         <DropdownTrigger>
           <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none duration-200">
             <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1 border-e-2 border-orange-250">
@@ -131,7 +133,10 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown onOpenChange={setDropOpen} isOpen={isScrolling ? false : undefined}>
+      <Dropdown
+        onOpenChange={setDropOpen}
+        //  isOpen={isScrolling ? false : undefined}
+      >
         <DropdownTrigger>
           <button className="static box-content flex w-[200px] flex-shrink-0 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none duration-200">
             <FaUserGroup className="size-5 text-white" />
