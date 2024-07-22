@@ -26,17 +26,15 @@ const BackToTopButton = () => {
 
   return (
     <>
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-4 right-4 mb-10 mr-10 flex flex-col items-center gap-1 rounded-full bg-stone-950 p-4 text-white shadow-lg"
-        >
-          <IoIosArrowUp className="text-[24px]" />
-          <h1 className="font-noto-sans-thai text-xs font-medium text-white">
-            TOP
-          </h1>
-        </button>
-      )}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-4 right-4 mb-10 mr-10 flex flex-col items-center gap-1 rounded-full bg-stone-950 p-4 text-white shadow-lg transition-all duration-200 ${isVisible ? "opacity-100" : "opacity-0"}`}
+      >
+        <IoIosArrowUp className="text-[24px]" />
+        <h1 className="font-noto-sans-thai text-xs font-medium text-white">
+          TOP
+        </h1>
+      </button>
     </>
   );
 };

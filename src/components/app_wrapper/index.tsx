@@ -8,12 +8,57 @@ import BackToTopButton from "../back_to_top_button";
 interface Props {
   children: ReactNode;
 }
+
 const AppWrapper: FunctionComponent<Props> = ({ children }) => {
   const router = useRouter();
-  console.log(router.route);
 
- 
 
+  const renderBreadcrumbs = () => (
+    <Breadcrumbs className="bg-zinc-830 px-[100px] py-[38px]">
+      <BreadcrumbItem
+        classNames={{
+          separator: "text-white text-[20px]",
+          item: "text-white text-xs font-normal font-noto-sans-thai",
+        }}
+      >
+        Home
+      </BreadcrumbItem>
+      <BreadcrumbItem
+        classNames={{
+          separator: "text-white text-[20px]",
+          item: "text-white text-xs font-normal font-noto-sans-thai",
+        }}
+      >
+        Hotels
+      </BreadcrumbItem>
+      <BreadcrumbItem
+        classNames={{
+          separator: "text-white text-[20px]",
+          item: "text-white text-xs font-normal font-noto-sans-thai",
+        }}
+      >
+        <button
+          onClick={() => {
+            if (router.asPath === "/gallery") {
+              router.push("/home");
+            }
+          }}
+        >
+          THE LUXURY HOTEL
+        </button>
+      </BreadcrumbItem>
+      {router.asPath === "/gallery" && (
+        <BreadcrumbItem
+          classNames={{
+            separator: "text-white text-[20px]",
+            item: "text-white text-xs font-normal font-noto-sans-thai",
+          }}
+        >
+          Photo by Hotel
+        </BreadcrumbItem>
+      )}
+    </Breadcrumbs>
+  );
 
   return (
     <div className="flex flex-col">
@@ -21,34 +66,9 @@ const AppWrapper: FunctionComponent<Props> = ({ children }) => {
         MELODY SKILL TEST
       </h1>
       <Header />
-      <Breadcrumbs className="bg-zinc-830 px-[100px] py-[38px]">
-        <BreadcrumbItem
-          classNames={{
-            separator: "text-white text-[20px]",
-            item: "text-white text-xs font-normal font-noto-sans-thai",
-          }}
-        >
-          Home
-        </BreadcrumbItem>
-        <BreadcrumbItem
-          classNames={{
-            separator: "text-white text-[20px]",
-            item: "text-white text-xs font-normal font-noto-sans-thai",
-          }}
-        >
-          Hotels
-        </BreadcrumbItem>
-        <BreadcrumbItem
-          classNames={{
-            separator: "text-white text-[20px]",
-            item: "text-white text-xs font-normal font-noto-sans-thai",
-          }}
-        >
-          THE LUXURY HOTEL
-        </BreadcrumbItem>
-      </Breadcrumbs>
+      {renderBreadcrumbs()}
       {children}
-      <BackToTopButton/>
+      <BackToTopButton />
       <Footer />
       <div className="flex h-[60px] items-center justify-center bg-zinc-830">
         <h1 className="font-['Kanit'] text-sm font-light text-white">
