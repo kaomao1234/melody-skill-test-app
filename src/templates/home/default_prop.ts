@@ -1,4 +1,4 @@
-import { HomePresenter } from "@/pages/home/presenter";
+import { HomePresenter } from "@/templates/home/presenter";
 
 interface DefaultProps {
   presenter: HomePresenter;

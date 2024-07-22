@@ -1,10 +1,13 @@
 import { FunctionComponent, RefObject, useMemo, useRef } from "react";
 import { usePresenter } from "@/hooks";
-import { HomePresenter } from "./presenter";
+import { HomePresenter } from "../../templates/home/presenter";
 import { useRouter } from "next/router";
-import { HotelDetails, HotelOverview, RoomList,MapLocation } from "@/templates/home";
-
-
+import {
+  HotelDetails,
+  HotelOverview,
+  RoomList,
+  MapLocation,
+} from "@/templates/home";
 
 const HomePage: FunctionComponent = () => {
   const router = useRouter();
@@ -20,7 +23,7 @@ const HomePage: FunctionComponent = () => {
     const element = ref.current;
     if (element) {
       console.log(element.getBoundingClientRect);
-      
+
       const elementPosition =
         element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - offset;
