@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   DropdownSection,
+  Calendar,
 } from "@nextui-org/react";
 import { FunctionComponent, useState } from "react";
 import { FaLocationDot, FaUserGroup } from "react-icons/fa6";
@@ -26,15 +27,12 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
       <Dropdown classNames={{ trigger: "justify-start" }}>
         <DropdownTrigger>
-          <Button
-            variant="bordered"
-            className="h-[56px] w-[400px] border-orange-250 text-white"
-            startContent={<FaLocationDot className="text-white" />}
-          >
+          <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none">
+            <FaLocationDot className="text-white" />
             {presenter.selectedLocation
               ? `${presenter.selectedLocation.name}, ${presenter.selectedLocation.region}`
               : "City, Hotels, Place to go"}
-          </Button>
+          </button>
         </DropdownTrigger>
         <DropdownMenu aria-label="Location selection" className="w-[400px] p-0">
           <DropdownSection
@@ -69,50 +67,44 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <div className="flex h-14 w-[400px] flex-row rounded-lg border-2 border-orange-250">
-        <DatePicker
-          radius="none"
-          label="Check-in"
-          selectorButtonProps={{ isDisabled: false }}
-          dateInputClassNames={{
-            base: "border-e-1 border-orange-250",
-            label: "!text-white",
-            inputWrapper: "!bg-transparent",
-            segment: "!text-white",
-          }}
-          popoverProps={{ style: { position: "fixed" } }}
-          calendarProps={{ isDisabled: false, isReadOnly: false }}
-          isReadOnly
-          onChange={presenter.handleCheckIn}
-          value={presenter.checkIndate}
-          selectorIcon={<RiCalendarCheckLine />}
-          minValue={today(getLocalTimeZone())}
-          defaultValue={today(getLocalTimeZone())}
-          maxValue={presenter.checkOutDate.subtract({ days: 1 })}
-        />
-        <DatePicker
-          label="Check-out"
-          radius="none"
-          dateInputClassNames={{
-            base: "border-e-1 border-orange-250",
-            label: "!text-white",
-            inputWrapper: "!bg-transparent",
-            segment: "!text-white",
-          }}
-          popoverProps={{ style: { position: "fixed" } }}
-          selectorButtonProps={{ isDisabled: false }}
-          calendarProps={{ isDisabled: false, isReadOnly: false }}
-          isReadOnly
-          onChange={presenter.handleCheckOut}
-          value={presenter.checkOutDate}
-          selectorIcon={<RiCalendarCloseFill />}
-          minValue={presenter.checkIndate.add({ days: 1 })}
-          defaultValue={today(getLocalTimeZone()).add({ days: 1 })}
-        />
-      </div>
+      <Dropdown>
+        <DropdownTrigger>
+          <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none">
+            <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1 border-e-2 border-orange-250">
+              <RiCalendarCheckLine className="text-[20px]" />
+              Check-in
+            </div>
+            <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1">
+              <RiCalendarCloseFill className="text-[20px]" />
+              Check-out
+            </div>
+          </button>
+        </DropdownTrigger>
+        <DropdownMenu>
+          <DropdownSection>
+            <DropdownItem isReadOnly key="calendar">
+              <div className="flex flex-row gap-4">
+                <Calendar
+                  minValue={today(getLocalTimeZone())}
+                  defaultValue={today(getLocalTimeZone())}
+                  maxValue={presenter.checkOutDate.subtract({ days: 1 })}
+                  value={presenter.checkIndate}
+                  onChange={presenter.handleCheckIn}
+                />
+                <Calendar
+                  minValue={presenter.checkIndate.add({ days: 1 })}
+                  defaultValue={today(getLocalTimeZone()).add({ days: 1 })}
+                  value={presenter.checkOutDate}
+                  onChange={presenter.handleCheckOut}
+                />
+              </div>
+            </DropdownItem>
+          </DropdownSection>
+        </DropdownMenu>
+      </Dropdown>
       <Dropdown onOpenChange={setDropOpen}>
         <DropdownTrigger>
-          <button className="flex w-[200px] flex-shrink-0 !scale-100 flex-row items-center gap-1 rounded-lg border-2 border-orange-250 px-[14px] font-noto-sans-thai">
+          <button className="static box-content flex w-[200px] flex-shrink-0 !scale-100 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none">
             <FaUserGroup className="size-5 text-white" />
             <div className="flex w-full flex-col items-start">
               <h1 className="text-sm font-normal text-white">
@@ -156,7 +148,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
-      <button className="group flex flex-row items-center justify-center gap-1 rounded-lg bg-orange-250 px-10 py-[9px] transition-all duration-200 hover:bg-black">
+      <button className="group flex flex-row items-center justify-center gap-1 rounded-lg bg-orange-250 px-10 transition-all duration-200 hover:bg-black">
         <GrSearch className="size-4 text-black group-hover:text-orange-250" />
         <h1 className="text-base font-medium text-zinc-830 group-hover:text-orange-250">
           Search
