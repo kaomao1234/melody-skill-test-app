@@ -6,7 +6,7 @@ import {
   useMemo,
   useCallback,
 } from "react";
-import { GalleryPresenter } from "../../templates/gallery/presenter";
+import { GalleryPresenter } from "@/templates/gallery";
 import Slider, { Settings } from "react-slick";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { Image } from "@nextui-org/react";

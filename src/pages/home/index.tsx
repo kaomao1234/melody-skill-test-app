@@ -1,12 +1,11 @@
 import { FunctionComponent, RefObject, useMemo, useRef } from "react";
 import { usePresenter } from "@/hooks";
-import { HomePresenter } from "../../templates/home/presenter";
 import { useRouter } from "next/router";
 import {
   HotelDetails,
   HotelOverview,
   RoomList,
-  MapLocation,
+  MapLocation,HomePresenter
 } from "@/templates/home";
 
 const HomePage: FunctionComponent = () => {
@@ -22,8 +21,6 @@ const HomePage: FunctionComponent = () => {
     const offset = 176 + 20; // Height of the fixed navbar
     const element = ref.current;
     if (element) {
-      console.log(element.getBoundingClientRect);
-
       const elementPosition =
         element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - offset;
