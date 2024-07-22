@@ -24,30 +24,30 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
   const [isDropOpen, setDropOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
-  useEffect(() => {
-    let timeoutId: number | undefined;
+  // useEffect(() => {
+  //   let timeoutId: number | undefined;
 
-    const handleWheel = (e: WheelEvent): void => {
-      setIsScrolling(true);
+  //   const handleWheel = (e: WheelEvent): void => {
+  //     setIsScrolling(true);
 
-      // Clear any existing timeout
-      clearTimeout(timeoutId);
+  //     // Clear any existing timeout
+  //     clearTimeout(timeoutId);
 
-      // Set a timeout to reset the scrolling state after 150ms of inactivity
-      timeoutId = window.setTimeout(() => {
-        setIsScrolling(false);
-      }, 150);
-    };
+  //     // Set a timeout to reset the scrolling state after 150ms of inactivity
+  //     timeoutId = window.setTimeout(() => {
+  //       setIsScrolling(false);
+  //     }, 150);
+  //   };
 
-    // Add event listener
-    window.addEventListener("wheel", handleWheel);
+  //   // Add event listener
+  //   window.addEventListener("wheel", handleWheel);
 
-    // Cleanup function to remove event listener
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+  //   // Cleanup function to remove event listener
+  //   return () => {
+  //     window.removeEventListener("wheel", handleWheel);
+  //     clearTimeout(timeoutId);
+  //   };
+  // }, []);
 
   return (
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
