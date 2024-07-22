@@ -27,7 +27,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
       <Dropdown classNames={{ trigger: "justify-start" }}>
         <DropdownTrigger>
-          <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none">
+          <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none duration-200">
             <FaLocationDot className="text-white" />
             {presenter.selectedLocation
               ? `${presenter.selectedLocation.name}, ${presenter.selectedLocation.region}`
@@ -69,7 +69,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
       </Dropdown>
       <Dropdown>
         <DropdownTrigger>
-          <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none">
+          <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none duration-200">
             <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1 border-e-2 border-orange-250">
               <RiCalendarCheckLine className="text-[20px]" />
               Check-in
@@ -104,7 +104,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
       </Dropdown>
       <Dropdown onOpenChange={setDropOpen}>
         <DropdownTrigger>
-          <button className="static box-content flex w-[200px] flex-shrink-0 !scale-100 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none">
+          <button className="static box-content flex w-[200px] flex-shrink-0 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none duration-200">
             <FaUserGroup className="size-5 text-white" />
             <div className="flex w-full flex-col items-start">
               <h1 className="text-sm font-normal text-white">
