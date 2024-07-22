@@ -11,8 +11,6 @@ interface Props {
 
 const AppWrapper: FunctionComponent<Props> = ({ children }) => {
   const router = useRouter();
-
-
   const renderBreadcrumbs = () => (
     <Breadcrumbs className="bg-zinc-830 px-[100px] py-[38px]">
       <BreadcrumbItem
