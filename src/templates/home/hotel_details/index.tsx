@@ -59,56 +59,6 @@ const HotelDetails = forwardRef<HTMLDetailsElement, Props>(
             <button className="flex flex-row items-center gap-1 font-noto-sans-thai text-sm font-normal text-orange-250 transition-all duration-200 hover:font-semibold">
               Read More <IoIosArrowForward className="text-[20px]" />
             </button>
-            <Modal
-              isOpen={isOpen}
-              onOpenChange={onOpenChange}
-              size="2xl"
-              classNames={{
-                body: "px-[40px] py-5",
-              }}
-            >
-              <ModalContent className="bg-zinc-830">
-                {(onClose) => (
-                  <>
-                    <ModalBody className="!w-full">
-                      <div className="flex flex-col gap-2">
-                        <h1 className="font-noto-sans-thai text-2xl font-semibold text-orange-250">
-                          THE LUXURY HOTEL
-                        </h1>
-                        <h1 className="font-noto-sans-thai text-base font-normal text-white">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat. Duis aute irure dolor in
-                          reprehenderit in voluptate velit esse cillum dolore eu
-                          fugiat nulla pariatur. Excepteur sint occaecat
-                          cupidatat non proident, sunt in culpa qui officia
-                          deserunt mollit anim id est laborum.
-                        </h1>
-                      </div>
-                      <div className="mt-6 flex flex-col gap-2">
-                        <h1 className="font-noto-sans-thai text-2xl font-semibold text-orange-250">
-                          Sub title
-                        </h1>
-                        <h1 className="font-noto-sans-thai text-base font-normal text-white">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis
-                          nostrud exercitation ullamco laboris nisi ut aliquip
-                          ex ea commodo consequat. Duis aute irure dolor in
-                          reprehenderit in voluptate velit esse cillum dolore eu
-                          fugiat nulla pariatur. Excepteur sint occaecat
-                          cupidatat non proident, sunt in culpa qui officia
-                          deserunt mollit anim id est laborum.
-                        </h1>
-                      </div>
-                    </ModalBody>
-                    <ModalFooter></ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
           </div>
           <div className="col-span-2 flex flex-col gap-6">
             <h1 className="font-noto-sans-thai text-xl font-medium text-orange-250">
@@ -141,6 +91,55 @@ const HotelDetails = forwardRef<HTMLDetailsElement, Props>(
             </div>
           </div>
         </div>
+        <Modal
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          size="2xl"
+          classNames={{
+            body: "px-[40px] py-5",
+            closeButton: "bg-white rounded-lg text-[20px] m-4",
+          }}
+        >
+          <ModalContent className="border-1 border-orange-250 bg-zinc-830">
+            {(onClose) => (
+              <>
+                <ModalBody className="!w-full">
+                  <div className="flex flex-col gap-2">
+                    <h1 className="font-noto-sans-thai text-2xl font-semibold text-orange-250">
+                      THE LUXURY HOTEL
+                    </h1>
+                    <h1 className="font-noto-sans-thai text-base font-normal text-white">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.
+                    </h1>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-2">
+                    <h1 className="font-noto-sans-thai text-2xl font-semibold text-orange-250">
+                      Sub title
+                    </h1>
+                    <h1 className="font-noto-sans-thai text-base font-normal text-white">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.
+                    </h1>
+                  </div>
+                </ModalBody>
+                <ModalFooter></ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </section>
     );
   },
