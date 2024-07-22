@@ -15,45 +15,22 @@ import { HeaderPresenter } from "./presenter";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { IoIosArrowDown } from "react-icons/io";
 import { GrSearch } from "react-icons/gr";
-import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { RoomControl } from "./room_control";
+import { useScrollLock } from "@/hooks";
 
 const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
   presenter,
 }) => {
+  const [isScrollLocked, toggleScrollLock] = useScrollLock();
   const [isDropOpen, setDropOpen] = useState(false);
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   let timeoutId: number | undefined;
-
-  //   const handleWheel = (e: WheelEvent): void => {
-  //     setIsScrolling(true);
-
-  //     // Clear any existing timeout
-  //     clearTimeout(timeoutId);
-
-  //     // Set a timeout to reset the scrolling state after 150ms of inactivity
-  //     timeoutId = window.setTimeout(() => {
-  //       setIsScrolling(false);
-  //     }, 150);
-  //   };
-
-  //   // Add event listener
-  //   window.addEventListener("wheel", handleWheel);
-
-  //   // Cleanup function to remove event listener
-  //   return () => {
-  //     window.removeEventListener("wheel", handleWheel);
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, []);
-
+  const handleOpenChange = (e: boolean) => {
+    toggleScrollLock();
+  };
   return (
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
       <Dropdown
         classNames={{ trigger: "justify-start" }}
-        // isOpen={isScrolling ? false : undefined}
+        onOpenChange={handleOpenChange}
       >
         <DropdownTrigger>
           <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none duration-200">
@@ -96,9 +73,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown
-      //  isOpen={isScrolling ? false : undefined}
-      >
+      <Dropdown onOpenChange={handleOpenChange}>
         <DropdownTrigger>
           <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none duration-200">
             <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1 border-e-2 border-orange-250">
@@ -134,8 +109,10 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
         </DropdownMenu>
       </Dropdown>
       <Dropdown
-        onOpenChange={setDropOpen}
-        //  isOpen={isScrolling ? false : undefined}
+        onOpenChange={(e) => {
+          handleOpenChange(e);
+          setDropOpen(e);
+        }}
       >
         <DropdownTrigger>
           <button className="static box-content flex w-[200px] flex-shrink-0 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none duration-200">
