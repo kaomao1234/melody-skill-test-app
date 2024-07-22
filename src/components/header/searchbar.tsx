@@ -8,7 +8,7 @@ import {
   DropdownSection,
   Calendar,
 } from "@nextui-org/react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { FaLocationDot, FaUserGroup } from "react-icons/fa6";
 import { RiCalendarCheckLine, RiCalendarCloseFill } from "react-icons/ri";
 import { HeaderPresenter } from "./presenter";
@@ -22,10 +22,39 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
   presenter,
 }) => {
   const [isDropOpen, setDropOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
+
+  useEffect(() => {
+    let timeoutId: number | undefined;
+
+    const handleWheel = (e: WheelEvent): void => {
+      setIsScrolling(true);
+
+      // Clear any existing timeout
+      clearTimeout(timeoutId);
+
+      // Set a timeout to reset the scrolling state after 150ms of inactivity
+      timeoutId = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    };
+
+    // Add event listener
+    window.addEventListener("wheel", handleWheel);
+
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <div className="flex flex-row items-stretch justify-between bg-zinc-830 px-[105px] py-[20px] font-noto-sans-thai">
-      <Dropdown classNames={{ trigger: "justify-start" }}>
+      <Dropdown
+        classNames={{ trigger: "justify-start" }}
+        isOpen={isScrolling ? false : undefined}
+      >
         <DropdownTrigger>
           <button className="box-content flex w-[400px] flex-row items-center justify-start gap-1 rounded-lg border-2 border-orange-250 px-2 text-white outline-none duration-200">
             <FaLocationDot className="text-white" />
@@ -67,7 +96,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown>
+      <Dropdown isOpen={isScrolling ? false : undefined}>
         <DropdownTrigger>
           <button className="box-content flex flex-row items-center justify-start gap-2 rounded-lg border-2 border-orange-250 px-2 font-noto-sans-thai text-white outline-none duration-200">
             <div className="flex h-full w-[200px] flex-row items-center justify-start gap-1 border-e-2 border-orange-250">
@@ -102,7 +131,7 @@ const SearchBar: FunctionComponent<{ presenter: HeaderPresenter }> = ({
           </DropdownSection>
         </DropdownMenu>
       </Dropdown>
-      <Dropdown onOpenChange={setDropOpen}>
+      <Dropdown onOpenChange={setDropOpen} isOpen={isScrolling ? false : undefined}>
         <DropdownTrigger>
           <button className="static box-content flex w-[200px] flex-shrink-0 flex-row items-center gap-1 rounded-lg border-2 !border-orange-250 px-[14px] py-1 font-noto-sans-thai outline-none duration-200">
             <FaUserGroup className="size-5 text-white" />
