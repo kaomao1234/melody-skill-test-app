@@ -11,6 +11,9 @@ import Slider, { Settings } from "react-slick";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { Image } from "@nextui-org/react";
 
+const THUMBNAIL_SIZE = 'h-full w-full';
+const SLIDER_HEIGHT = 'h-[420px]';
+
 const GalleryPage: FunctionComponent = () => {
   const presenter = usePresenter<GalleryPresenter>(
     (set) => new GalleryPresenter(set),
@@ -19,11 +22,17 @@ const GalleryPage: FunctionComponent = () => {
   const { gallery, getBedroom, getLobby } = presenter;
 
   const sliderRef = useRef<Slider>(null);
-  const [selected, setSelect] = useState<string>("All Photos");
   const [currentPhoto, setCurrentPhoto] = useState<number>(0);
-  const [selectedPhoto, setSelectedPhoto] = useState(gallery);
 
-  const isSelected = useCallback((val: string) => selected === val, [selected]);
+  const bedroom = useMemo(() => getBedroom(), [getBedroom]);
+  const lobby = useMemo(() => getLobby(), [getLobby]);
+
+  const [selectedCategory, setSelectedCategory] = useState({
+    label: "All Photos",
+    photos: gallery
+  });
+
+  const isSelected = useCallback((val: string) => selectedCategory.label === val, [selectedCategory]);
 
   const settings: Settings = useMemo(
     () => ({
@@ -33,29 +42,27 @@ const GalleryPage: FunctionComponent = () => {
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
-      afterChange(currentSlide) {
-        setCurrentPhoto(currentSlide);
-      },
+      afterChange: setCurrentPhoto,
     }),
-    [],
+    []
   );
 
   const buttons = useMemo(
     () => [
       {
         label: "All Photos",
-        callback: () => setSelectedPhoto(gallery),
+        callback: () => setSelectedCategory({ label: "All Photos", photos: gallery }),
       },
       {
-        label: `Bedroom(${getBedroom().length})`,
-        callback: () => setSelectedPhoto(getBedroom()),
+        label: `Bedroom(${bedroom.length})`,
+        callback: () => setSelectedCategory({ label: "Bedroom", photos: bedroom }),
       },
       {
-        label: `Lobby(${getLobby().length})`,
-        callback: () => setSelectedPhoto(getLobby()),
+        label: `Lobby(${lobby.length})`,
+        callback: () => setSelectedCategory({ label: "Lobby", photos: lobby }),
       },
     ],
-    [gallery, getBedroom, getLobby],
+    [gallery, bedroom, lobby]
   );
 
   return (
@@ -71,13 +78,13 @@ const GalleryPage: FunctionComponent = () => {
           >
             <MdArrowBackIos />
           </button>
-          <Slider {...settings} ref={sliderRef} className="h-[420px] w-[50vw]">
-            {selectedPhoto.map((value, index) => (
+          <Slider {...settings} ref={sliderRef} className={`${SLIDER_HEIGHT} w-[50vw]`}>
+            {selectedCategory.photos.map((value, index) => (
               <Image
                 loading="lazy"
                 src={value.image}
                 key={index}
-                className="h-[420px] rounded-xl object-cover"
+                className={`${SLIDER_HEIGHT} rounded-xl object-cover`}
                 alt={`Gallery image ${index + 1}`}
               />
             ))}
@@ -90,7 +97,7 @@ const GalleryPage: FunctionComponent = () => {
           </button>
         </div>
         <div className="mt-[60px] flex flex-row items-center justify-center gap-10">
-          {buttons.map((value, index) => (
+          {buttons.map((value) => (
             <button
               key={value.label}
               className={`border-b-2 py-2.5 font-noto-sans-thai text-base font-medium duration-200 hover:border-orange-250 hover:text-orange-250 ${
@@ -99,9 +106,9 @@ const GalleryPage: FunctionComponent = () => {
                   : "border-b-transparent text-white"
               }`}
               onClick={() => {
-                setSelect(value.label);
-                value.callback();
                 setCurrentPhoto(0);
+                sliderRef.current?.slickGoTo(0);
+                value.callback();
               }}
             >
               {value.label}
@@ -110,14 +117,11 @@ const GalleryPage: FunctionComponent = () => {
         </div>
       </div>
       <div className="grid grid-cols-4 grid-rows-2 gap-3 px-[180px]">
-        {selectedPhoto.map((value, index) => (
+        {selectedCategory.photos.map((value, index) => (
           <button
             key={index}
             className="relative rounded-xl"
-            onClick={() => {
-              setCurrentPhoto(index);
-              sliderRef.current?.slickGoTo(index);
-            }}
+            onClick={() => sliderRef.current?.slickGoTo(index)}
           >
             <div
               className={`absolute z-10 h-full w-full transition-all duration-200 ${
@@ -126,7 +130,7 @@ const GalleryPage: FunctionComponent = () => {
             />
             <img
               src={value.image}
-              className="h-full w-full"
+              className={THUMBNAIL_SIZE}
               alt={`Thumbnail image ${index + 1}`}
             />
           </button>
