@@ -5,7 +5,8 @@ import {
   HotelDetails,
   HotelOverview,
   RoomList,
-  MapLocation,HomePresenter
+  MapLocation,
+  HomePresenter,
 } from "@/templates/home";
 
 const HomePage: FunctionComponent = () => {
