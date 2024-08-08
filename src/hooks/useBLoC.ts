@@ -25,21 +25,19 @@ type CubitDispatch<T> = (emit: CubitAction<T>) => T;
  * @returns {T} - The current state of the Cubit.
  */
 function useBLoC<T extends object>(create: CubitDispatch<T>): T {
-  const created = useMemo(
-    () =>
-      create((action) => {
-        // Emit function to update the state immutably.
-        setCubit((prev) => {
-          const nextState = { ...prev };
-          action(nextState);
-          Object.assign(created, nextState);
-          return nextState;
-        });
-      }),
-    [],
-  );
   // Initialize the state with the initial state returned by the create function.
-  const [cubit, setCubit] = useState<T>(() => created);
+  const [cubit, setCubit] = useState<T>(() => {
+    const created = create((action) => {
+      // Emit function to update the state immutably.
+      setCubit((prev) => {
+        const nextState = { ...prev };
+        action(nextState);
+        Object.assign(created, nextState);
+        return nextState;
+      });
+    });
+    return created;
+  });
   return cubit;
 }
 
