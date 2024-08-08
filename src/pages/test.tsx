@@ -7,7 +7,6 @@ class TestTarget extends Target {
   count = 0;
   countR!: number;
   increment = () => {
-    console.log(this);
     this.count += 1;
     this.request();
   };
@@ -17,9 +16,27 @@ class TestTarget extends Target {
   };
 }
 
+type cubitType = ReturnType<typeof TestCubit>;
+function TestCubit(callback: any) {
+  const emit: CubitAction<cubitType> = callback;
+  const cubit = {
+    count: 0,
+    increment: () =>
+      emit((value) => {
+        value.count += 1;
+      }),
+    decrement: () =>
+      emit((value) => {
+        value.count -= 1;
+      }),
+  };
+  return cubit;
+}
+
 const Test: FunctionComponent = () => {
   const countR = useRef(0);
   const target = useAdapter(new TestTarget(), { countR: countR.current });
+  // const cubit = useBLoC<cubitType>((emit) => TestCubit(emit));
   const { increment, decrement, count } = target;
   countR.current += 1;
   return (
