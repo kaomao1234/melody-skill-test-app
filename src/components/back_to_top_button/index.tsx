@@ -7,13 +7,12 @@ const BackToTopButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const position = window.pageYOffset;
+      const position = window.scrollY;
       setScrollPosition(position);
       setIsVisible(position > 300);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
